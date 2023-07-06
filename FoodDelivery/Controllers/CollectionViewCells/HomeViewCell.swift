@@ -11,28 +11,54 @@ class HomeViewCell: UICollectionViewCell {
     
     static let identifire = "CustomCell"
     let category = [Category]()
-    private let myImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "house")
-        imageView.backgroundColor = .yellow
-        return imageView
-    }()
+    private let imageView = UIImageView()
     
-    private let myLabel: UILabel = {
-        let label = UILabel()
-        
-        label.backgroundColor = .green
-        return label
-    }()
+    private let myLabel = UILabel()
     
-    func labelConfigure(with category: Category) {
+    func labelConfigure(with category: HomeCollectionContent) {
         myLabel.text = category.name
     }
     
+    func imageConfigure(with category: HomeCollectionContent) {
+        // Проверяем, что imageURL является валидным URL
+        guard let imageURL = URL(string: category.imageURL) else {
+            // Обработка некорректного URL
+            return
+        }
+        
+        // Создаем сессию URLSession
+        let session = URLSession.shared
+        
+        // Создаем задачу для загрузки данных изображения
+        let task = session.dataTask(with: imageURL) { [weak self] (data, response, error) in
+            if let error = error {
+                // Обработка ошибки загрузки данных
+                print("Ошибка загрузки изображения: \(error)")
+                return
+            }
+            
+            // Проверяем, что получены данные изображения
+            guard let imageData = data, let image = UIImage(data: imageData) else {
+                // Обработка некорректных данных изображения
+                print("Некорректные данные изображения")
+                return
+            }
+            
+            // Обновляем UI на основной очереди
+            DispatchQueue.main.async {
+                self?.imageView.image = image
+            }
+        }
+        
+        // Запускаем задачу загрузки данных
+        task.resume()
+    }
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .systemRed
-//        contentView.addSubview(myImageView)
+        contentView.layer.cornerRadius = 10
+        contentView.addSubview(imageView)
         contentView.addSubview(myLabel)
     }
     
@@ -46,16 +72,18 @@ class HomeViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         
-        myLabel.frame = CGRect(x: 5,
-                               y: contentView.frame.size.height-50,
+        myLabel.frame = CGRect(x: 16,
+                               y: 12,
                                width: contentView.frame.size.width-10,
                                height: 50)
+        myLabel.numberOfLines = 0
         
        
-//        
-//        myImageView.frame = CGRect(x: 5,
-//                               y: 0,
-//                               width: contentView.frame.size.width-10,
-//                                   height: contentView.frame.size.height-50)
+       
+        
+        imageView.frame = CGRect(x: 0,
+                               y: 0,
+                               width: contentView.frame.size.width,
+                                   height: contentView.frame.size.height)
     }
 }

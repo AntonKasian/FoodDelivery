@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     var collectionView: UICollectionView?
     
     let category = [Category]()
-    let collectionContent = [HomeCollectionViewContent]()
+    var collectionContent = [HomeCollectionContent]()
     
     
     let text: UILabel = {
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
         collectionView?.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 50, right: 0)
         
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: view.frame.size.width-10, height: 148)
+        layout.itemSize = CGSize(width: view.frame.size.width - 10, height: 148)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 1
         
@@ -52,6 +52,7 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
+        
         
         locationView.addSubview(imageView)
         locationView.addSubview(text)
@@ -69,28 +70,31 @@ class HomeViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoViewTapped))
         photoView.addGestureRecognizer(tapGesture)
 
+        fetchContent()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: locationView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: photoView)
-        
-        ApiCaller.share.getRequest { result in
-            switch result {
-            case .success(let categories):
-                // API запрос выполнен успешно
-                print("Количество категорий: \(categories.count)")
-                for category in categories {
-                    print("ID: \(category.id), Название: \(category.name), URL изображения: \(category.imageURL)")
-                }
-            case .failure(let error):
-                // Произошла ошибка при выполнении API запроса
-                print("Ошибка при выполнении API запроса: \(error)")
-            }
-        }
+
 
     }
     
     @objc func photoViewTapped() {
         navigationController?.pushViewController(accountViewController, animated: true)
+    }
+    
+    func fetchContent() {
+        ApiCaller.share.getRequest { result in
+            switch result {
+            case .success(let categories):
+                self.collectionContent = categories.map { HomeCollectionContent(name: $0.name, imageURL: $0.imageURL) }
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
+            case .failure(let error):
+                // Обработка ошибки
+                print("Ошибка при выполнении API запроса: \(error)")
+            }
+        }
     }
     
     //MARK: Configure
@@ -126,14 +130,15 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionContent.count
+        return collectionContent.count // не видно из-за этого
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as? HomeViewCell else { return UICollectionViewCell() }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! HomeViewCell
         
-        let categories = category[indexPath.item]
+        let categories = collectionContent[indexPath.item]
         cell.labelConfigure(with: categories)
+        cell.imageConfigure(with: categories)
         cell.layer.cornerRadius = 10
         return cell
     }
