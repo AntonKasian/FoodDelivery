@@ -21,6 +21,9 @@ class HomeViewController: UIViewController {
     }()
     var collectionView: UICollectionView?
     
+    let category = [Category]()
+    let collectionContent = [HomeCollectionViewContent]()
+    
     
     let text: UILabel = {
         let text = UILabel()
@@ -32,6 +35,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
         let layout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 50, right: 0)
@@ -44,6 +48,7 @@ class HomeViewController: UIViewController {
         guard let collectionView = collectionView else { return }
         
         collectionView.register(HomeViewCell.self, forCellWithReuseIdentifier: "CustomCell")
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
@@ -67,6 +72,21 @@ class HomeViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: locationView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: photoView)
+        
+        ApiCaller.share.getRequest { result in
+            switch result {
+            case .success(let categories):
+                // API запрос выполнен успешно
+                print("Количество категорий: \(categories.count)")
+                for category in categories {
+                    print("ID: \(category.id), Название: \(category.name), URL изображения: \(category.imageURL)")
+                }
+            case .failure(let error):
+                // Произошла ошибка при выполнении API запроса
+                print("Ошибка при выполнении API запроса: \(error)")
+            }
+        }
+
     }
     
     @objc func photoViewTapped() {
@@ -92,6 +112,8 @@ class HomeViewController: UIViewController {
         
         self.currentDate.text = dateString
     }
+    
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -104,11 +126,14 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return collectionContent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as? HomeViewCell else { return UICollectionViewCell() }
+        
+        let categories = category[indexPath.item]
+        cell.labelConfigure(with: categories)
         cell.layer.cornerRadius = 10
         return cell
     }
