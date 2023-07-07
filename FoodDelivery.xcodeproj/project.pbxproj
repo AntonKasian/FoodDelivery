@@ -13,6 +13,7 @@
 		3A380FE72A5813E70042B884 /* ModelDishes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE62A5813E70042B884 /* ModelDishes.swift */; };
 		3A380FE92A5814860042B884 /* DishesCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE82A5814860042B884 /* DishesCollectionContent.swift */; };
 		3A380FEB2A5815770042B884 /* DishesApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FEA2A5815770042B884 /* DishesApiCaller.swift */; };
+		3A380FEE2A582B650042B884 /* SOLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FED2A582B650042B884 /* SOLabel.swift */; };
 		3A39B6752A56ACD5003507E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6742A56ACD5003507E3 /* AppDelegate.swift */; };
 		3A39B6772A56ACD5003507E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */; };
 		3A39B67E2A56ACDA003507E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A39B67D2A56ACDA003507E3 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		3A380FE62A5813E70042B884 /* ModelDishes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDishes.swift; sourceTree = "<group>"; };
 		3A380FE82A5814860042B884 /* DishesCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesCollectionContent.swift; sourceTree = "<group>"; };
 		3A380FEA2A5815770042B884 /* DishesApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesApiCaller.swift; sourceTree = "<group>"; };
+		3A380FED2A582B650042B884 /* SOLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOLabel.swift; sourceTree = "<group>"; };
 		3A39B6712A56ACD5003507E3 /* FoodDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A39B6742A56ACD5003507E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A380FEC2A582B4A0042B884 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3A39B6742A56ACD5003507E3 /* AppDelegate.swift */,
+				3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */,
+				3A380FED2A582B650042B884 /* SOLabel.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3A39B6682A56ACD5003507E3 = {
 			isa = PBXGroup;
 			children = (
@@ -86,8 +98,7 @@
 				3A39B6972A56D708003507E3 /* Model */,
 				3A39B6932A56B0DB003507E3 /* Navigation */,
 				3A39B68A2A56AE4E003507E3 /* Controllers */,
-				3A39B6742A56ACD5003507E3 /* AppDelegate.swift */,
-				3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */,
+				3A380FEC2A582B4A0042B884 /* Helpers */,
 				3A39B67D2A56ACDA003507E3 /* Assets.xcassets */,
 				3A39B67F2A56ACDA003507E3 /* LaunchScreen.storyboard */,
 				3A39B6822A56ACDA003507E3 /* Info.plist */,
@@ -228,6 +239,7 @@
 				3A39B6752A56ACD5003507E3 /* AppDelegate.swift in Sources */,
 				3A39B6772A56ACD5003507E3 /* SceneDelegate.swift in Sources */,
 				3A380FE72A5813E70042B884 /* ModelDishes.swift in Sources */,
+				3A380FEE2A582B650042B884 /* SOLabel.swift in Sources */,
 				3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */,
 				3A39B68C2A56AE65003507E3 /* HomeViewController.swift in Sources */,
 				3A380FE32A57F3370042B884 /* DishesViewCell.swift in Sources */,

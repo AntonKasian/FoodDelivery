@@ -97,7 +97,7 @@ class DishesViewController: UIViewController {
     
     func dishesLayoutConfigure() {
         dishesLayout.scrollDirection = .vertical
-        dishesLayout.itemSize = CGSize(width: 109, height: 160)
+        dishesLayout.itemSize = CGSize(width: 115, height: 160)
         dishesLayout.minimumLineSpacing = 10
         dishesLayout.minimumInteritemSpacing = 1
     }
