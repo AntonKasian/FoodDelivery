@@ -87,6 +87,7 @@ class DishesViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.dishesCollectionView?.reloadData()
                 }
+                
             case .failure(let error):
                 // Обработайте ошибку, если возникла
                 print("Ошибка при получении данных: \(error)")
@@ -130,7 +131,7 @@ extension DishesViewController: UICollectionViewDataSource {
             return dishesCollectionContent.count
         } else if collectionView == horizontalCollectionView {
             
-            return 10
+            return 4
         }
         return 0
     }
@@ -146,8 +147,14 @@ extension DishesViewController: UICollectionViewDataSource {
             
             return cell
         } else if collectionView == horizontalCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalCell", for: indexPath)
-            // Конфигурируйте ячейку для horizontalCollectionView
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalCell", for: indexPath) as! HorizontalViewCell
+            
+            let tagNames = ["Все меню", "С рисом", "С рыбой", "Салаты"]
+            let tagName = tagNames[indexPath.item]
+            
+            // Передайте объект DishesCollectionContent в ячейку
+            cell.labelConfigure(with: [tagName])
+            
             return cell
         }
         return UICollectionViewCell()

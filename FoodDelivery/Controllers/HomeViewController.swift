@@ -102,7 +102,7 @@ class HomeViewController: UIViewController {
     
     func layoutConfigure() {
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: view.frame.size.width - 10, height: 148)
+        layout.itemSize = CGSize(width: view.frame.size.width - 10, height: 150)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 1
     }

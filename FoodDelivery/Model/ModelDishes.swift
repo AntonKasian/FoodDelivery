@@ -20,7 +20,7 @@ struct Dish: Codable {
     let description: String
     let imageURL: String
     let tegs: [Teg]
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, price, weight, description
         case imageURL = "image_url"
@@ -28,9 +28,13 @@ struct Dish: Codable {
     }
 }
 
+//struct Teg: Codable {
+//    let name: String
+//}
+
 enum Teg: String, Codable {
-    case всеМеню = "Все меню"
-    case сРисом = "С рисом"
-    case сРыбой = "С рыбой"
-    case салаты = "Салаты"
+    case allMenu = "Все меню"
+    case withRice = "С рисом"
+    case withFish = "С рыбой"
+    case salads = "Салаты"
 }
