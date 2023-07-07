@@ -7,18 +7,24 @@
 
 import UIKit
 
+protocol HomeViewCellDelegate: AnyObject {
+    func didSelectCell(withTitle title: String)
+}
+
 class HomeViewCell: UICollectionViewCell {
     
-    static let identifire = "CustomCell"
+    static let identifire = "HomeCell"
+    weak var delegate: HomeViewCellDelegate?
+    
     let category = [Category]()
-    private let imageView = UIImageView()
-    private let myLabel = UILabel()
+    private let categoryImageView = UIImageView()
+    let nameCategoryLabel = UILabel()
     
     func labelConfigure(with category: MainCollectionContent) {
-        myLabel.text = category.name
+        nameCategoryLabel.text = category.name
        // let font = UIFont(name: "SFProDisplay-Bold", size: 5)
-        myLabel.numberOfLines = 0
-        myLabel.font = UIFont.systemFont(ofSize: 20)
+        nameCategoryLabel.numberOfLines = 0
+        nameCategoryLabel.font = UIFont.systemFont(ofSize: 20)
         
     }
     
@@ -39,7 +45,7 @@ class HomeViewCell: UICollectionViewCell {
             }
             
             DispatchQueue.main.async {
-                self?.imageView.image = image
+                self?.categoryImageView.image = image
             }
         }
         task.resume()
@@ -49,8 +55,8 @@ class HomeViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.cornerRadius = 10
-        contentView.addSubview(imageView)
-        contentView.addSubview(myLabel)
+        contentView.addSubview(categoryImageView)
+        contentView.addSubview(nameCategoryLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -64,12 +70,12 @@ class HomeViewCell: UICollectionViewCell {
         
        
         
-        myLabel.frame = CGRect(x: 16,
+        nameCategoryLabel.frame = CGRect(x: 16,
                                y: 12,
                                width: 191,
                                height: 50)
        
-        imageView.frame = CGRect(x: 0,
+        categoryImageView.frame = CGRect(x: 0,
                                y: 0,
                                width: contentView.frame.size.width,
                                height: contentView.frame.size.height)

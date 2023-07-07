@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     let imageView = UIImageView()
     let currentDate = UILabel()
     let accountViewController = AccountViewController()
-    let photoView: UIView = {
+    private let photoView: UIView = {
         let image = UIImageView()
         image.image = UIImage(named: "AccountPhoto")
         
@@ -41,9 +41,10 @@ class HomeViewController: UIViewController {
         layoutConfigure()
         
         guard let collectionView = collectionView else { return }
-        collectionView.register(HomeViewCell.self, forCellWithReuseIdentifier: "CustomCell")
+        collectionView.register(HomeViewCell.self, forCellWithReuseIdentifier: "HomeCell")
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
         
         view.addSubview(collectionView)
         
@@ -122,30 +123,48 @@ class HomeViewController: UIViewController {
     
 }
 
+func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    collectionView.deselectItem(at: indexPath, animated: true)
+    
+    print("You tapped me")
+}
+
 //MARK: - Extensions
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        print("You tapped me")
+        if let cell = collectionView.cellForItem(at: indexPath) as? HomeViewCell {
+            cell.delegate?.didSelectCell(withTitle: cell.nameCategoryLabel.text ?? "")
+        }
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionContent.count // не видно из-за этого
+        return collectionContent.count 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! HomeViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCell", for: indexPath) as! HomeViewCell
         
         let categories = collectionContent[indexPath.item]
         cell.labelConfigure(with: categories)
         cell.imageConfigure(with: categories)
         cell.layer.cornerRadius = 10
+        cell.delegate = self
         return cell
     }
 }
+
+extension HomeViewController: HomeViewCellDelegate {
+    func didSelectCell(withTitle title: String) {
+        let dishesVC = DishesViewController()
+        dishesVC.title = title // Установка значения в title
+        navigationController?.pushViewController(dishesVC, animated: true)
+    }
+}
+
 
 
