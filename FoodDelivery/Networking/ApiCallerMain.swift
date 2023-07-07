@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ApiCaller {
-    static let share = ApiCaller()
+final class ApiCallerMain {
+    static let share = ApiCallerMain()
     
     struct Constant {
         static let categoryAPIURL = URL(string: "https://run.mocky.io/v3/058729bd-1402-4578-88de-265481fd7d54")

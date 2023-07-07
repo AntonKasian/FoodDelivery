@@ -22,10 +22,10 @@ class HomeViewController: UIViewController {
     var collectionView: UICollectionView?
     
     let category = [Category]()
-    var collectionContent = [HomeCollectionContent]()
-    
-    
-    let text: UILabel = {
+    var collectionContent = [MainCollectionContent]()
+    let layout = UICollectionViewFlowLayout()
+
+    let cityNameLabel: UILabel = {
         let text = UILabel()
         text.text = "Санкт-Петербург"
         return text
@@ -35,34 +35,24 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        
-        let layout = UICollectionViewFlowLayout()
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 50, right: 0)
-        
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: view.frame.size.width - 10, height: 148)
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 1
+        layoutConfigure()
         
         guard let collectionView = collectionView else { return }
-        
         collectionView.register(HomeViewCell.self, forCellWithReuseIdentifier: "CustomCell")
-        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         view.addSubview(collectionView)
         
-        
-        locationView.addSubview(imageView)
-        locationView.addSubview(text)
-        locationView.addSubview(currentDate)
-        
+        locationViewConfigure()
         imageConfigure()
         currentDateConfigure()
         
         imageView.frame = CGRect(x: 0, y: -15, width: 24, height: 24)
-        text.frame = CGRect(x: 30, y: -30, width: 145, height: 42)
+        cityNameLabel.frame = CGRect(x: 30, y: -30, width: 145, height: 42)
         currentDate.frame = CGRect(x: 30, y: -6, width: 145, height: 42)
         collectionView.frame = CGRect(x: 0, y: 60, width: view.bounds.width, height: view.bounds.height-100)
         
@@ -74,19 +64,19 @@ class HomeViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: locationView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: photoView)
-
-
     }
     
     @objc func photoViewTapped() {
         navigationController?.pushViewController(accountViewController, animated: true)
     }
     
+    //MARK: - API
+    
     func fetchContent() {
-        ApiCaller.share.getRequest { result in
+        ApiCallerMain.share.getRequest { result in
             switch result {
             case .success(let categories):
-                self.collectionContent = categories.map { HomeCollectionContent(name: $0.name, imageURL: $0.imageURL) }
+                self.collectionContent = categories.map { MainCollectionContent(name: $0.name, imageURL: $0.imageURL) }
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
                 }
@@ -97,10 +87,23 @@ class HomeViewController: UIViewController {
         }
     }
     
-    //MARK: Configure
+    //MARK: - Configure
     
     func imageConfigure() {
         imageView.image = UIImage(named: "Icons")
+    }
+    
+    func locationViewConfigure() {
+        locationView.addSubview(imageView)
+        locationView.addSubview(cityNameLabel)
+        locationView.addSubview(currentDate)
+    }
+    
+    func layoutConfigure() {
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: view.frame.size.width - 10, height: 148)
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 1
     }
     
     func currentDateConfigure() {
@@ -117,8 +120,9 @@ class HomeViewController: UIViewController {
         self.currentDate.text = dateString
     }
     
-    
 }
+
+//MARK: - Extensions
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

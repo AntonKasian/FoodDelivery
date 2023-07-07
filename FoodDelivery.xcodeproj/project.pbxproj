@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A380FE12A57E4B40042B884 /* DishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE02A57E4B40042B884 /* DishesViewController.swift */; };
 		3A39B6752A56ACD5003507E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6742A56ACD5003507E3 /* AppDelegate.swift */; };
 		3A39B6772A56ACD5003507E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */; };
 		3A39B67E2A56ACDA003507E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A39B67D2A56ACDA003507E3 /* Assets.xcassets */; };
@@ -17,12 +18,13 @@
 		3A39B6902A56AE87003507E3 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B68F2A56AE87003507E3 /* BasketViewController.swift */; };
 		3A39B6922A56AE91003507E3 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6912A56AE91003507E3 /* AccountViewController.swift */; };
 		3A39B6962A56CEDB003507E3 /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6952A56CEDB003507E3 /* HomeViewCell.swift */; };
-		3A39B69A2A56D824003507E3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6992A56D824003507E3 /* Model.swift */; };
-		3A39B69C2A56D86B003507E3 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69B2A56D86B003507E3 /* ApiCaller.swift */; };
-		3A39B69E2A56DC55003507E3 /* HomeCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69D2A56DC55003507E3 /* HomeCollectionContent.swift */; };
+		3A39B69A2A56D824003507E3 /* ModelMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6992A56D824003507E3 /* ModelMain.swift */; };
+		3A39B69C2A56D86B003507E3 /* ApiCallerMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69B2A56D86B003507E3 /* ApiCallerMain.swift */; };
+		3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A380FE02A57E4B40042B884 /* DishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesViewController.swift; sourceTree = "<group>"; };
 		3A39B6712A56ACD5003507E3 /* FoodDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A39B6742A56ACD5003507E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,9 +37,9 @@
 		3A39B68F2A56AE87003507E3 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		3A39B6912A56AE91003507E3 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		3A39B6952A56CEDB003507E3 /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
-		3A39B6992A56D824003507E3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		3A39B69B2A56D86B003507E3 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
-		3A39B69D2A56DC55003507E3 /* HomeCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionContent.swift; sourceTree = "<group>"; };
+		3A39B6992A56D824003507E3 /* ModelMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMain.swift; sourceTree = "<group>"; };
+		3A39B69B2A56D86B003507E3 /* ApiCallerMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallerMain.swift; sourceTree = "<group>"; };
+		3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				3A39B6942A56CEBE003507E3 /* CollectionViewCells */,
 				3A39B68B2A56AE65003507E3 /* HomeViewController.swift */,
+				3A380FE02A57E4B40042B884 /* DishesViewController.swift */,
 				3A39B68D2A56AE6F003507E3 /* SearchViewController.swift */,
 				3A39B68F2A56AE87003507E3 /* BasketViewController.swift */,
 				3A39B6912A56AE91003507E3 /* AccountViewController.swift */,
@@ -114,8 +117,8 @@
 		3A39B6972A56D708003507E3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3A39B6992A56D824003507E3 /* Model.swift */,
-				3A39B69D2A56DC55003507E3 /* HomeCollectionContent.swift */,
+				3A39B6992A56D824003507E3 /* ModelMain.swift */,
+				3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,7 +126,7 @@
 		3A39B6982A56D70D003507E3 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				3A39B69B2A56D86B003507E3 /* ApiCaller.swift */,
+				3A39B69B2A56D86B003507E3 /* ApiCallerMain.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -198,17 +201,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A39B69A2A56D824003507E3 /* Model.swift in Sources */,
+				3A39B69A2A56D824003507E3 /* ModelMain.swift in Sources */,
 				3A39B6902A56AE87003507E3 /* BasketViewController.swift in Sources */,
 				3A39B6962A56CEDB003507E3 /* HomeViewCell.swift in Sources */,
 				3A39B68E2A56AE6F003507E3 /* SearchViewController.swift in Sources */,
+				3A380FE12A57E4B40042B884 /* DishesViewController.swift in Sources */,
 				3A39B6922A56AE91003507E3 /* AccountViewController.swift in Sources */,
 				3A39B6892A56AE20003507E3 /* TabBarAndNavigationController.swift in Sources */,
 				3A39B6752A56ACD5003507E3 /* AppDelegate.swift in Sources */,
 				3A39B6772A56ACD5003507E3 /* SceneDelegate.swift in Sources */,
-				3A39B69E2A56DC55003507E3 /* HomeCollectionContent.swift in Sources */,
+				3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */,
 				3A39B68C2A56AE65003507E3 /* HomeViewController.swift in Sources */,
-				3A39B69C2A56D86B003507E3 /* ApiCaller.swift in Sources */,
+				3A39B69C2A56D86B003507E3 /* ApiCallerMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

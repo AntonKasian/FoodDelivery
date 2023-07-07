@@ -7,10 +7,9 @@
 
 import Foundation
 
-class HomeCollectionContent {
+class MainCollectionContent {
     //let id: String
     let name: String
-//    let imageURL: URL?
     let imageURL: String
     
     init(name: String, imageURL: String) {
