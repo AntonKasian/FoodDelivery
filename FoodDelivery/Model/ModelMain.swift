@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - NewFile
-struct NewFile: Codable {
+struct NewCategory: Codable {
     let сategories: [Category]
 }
 

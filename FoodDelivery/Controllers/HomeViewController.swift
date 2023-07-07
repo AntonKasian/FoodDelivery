@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     var collectionView: UICollectionView?
     
     let category = [Category]()
-    var collectionContent = [MainCollectionContent]()
+    var categoryCollectionContent = [MainCollectionContent]()
     let layout = UICollectionViewFlowLayout()
 
     let cityNameLabel: UILabel = {
@@ -71,13 +71,13 @@ class HomeViewController: UIViewController {
         navigationController?.pushViewController(accountViewController, animated: true)
     }
     
-    //MARK: - API
+    //MARK: - Network
     
     func fetchContent() {
-        ApiCallerMain.share.getRequest { result in
+        CategoryApiCaller.share.getRequest { result in
             switch result {
             case .success(let categories):
-                self.collectionContent = categories.map { MainCollectionContent(name: $0.name, imageURL: $0.imageURL) }
+                self.categoryCollectionContent = categories.map { MainCollectionContent(name: $0.name, imageURL: $0.imageURL) }
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
                 }
@@ -143,15 +143,15 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionContent.count 
+        return categoryCollectionContent.count 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCell", for: indexPath) as! HomeViewCell
         
-        let categories = collectionContent[indexPath.item]
-        cell.labelConfigure(with: categories)
-        cell.imageConfigure(with: categories)
+        let categories = categoryCollectionContent[indexPath.item]
+        cell.dishesLabelConfigure(with: categories)
+        cell.dishesImageConfigure(with: categories)
         cell.layer.cornerRadius = 10
         cell.delegate = self
         return cell

@@ -20,7 +20,7 @@ class HomeViewCell: UICollectionViewCell {
     private let categoryImageView = UIImageView()
     let nameCategoryLabel = UILabel()
     
-    func labelConfigure(with category: MainCollectionContent) {
+    func dishesLabelConfigure(with category: MainCollectionContent) {
         nameCategoryLabel.text = category.name
        // let font = UIFont(name: "SFProDisplay-Bold", size: 5)
         nameCategoryLabel.numberOfLines = 0
@@ -28,7 +28,7 @@ class HomeViewCell: UICollectionViewCell {
         
     }
     
-    func imageConfigure(with category: MainCollectionContent) {
+    func dishesImageConfigure(with category: MainCollectionContent) {
         guard let imageURL = URL(string: category.imageURL) else {
             return
         }
@@ -67,8 +67,6 @@ class HomeViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-       
         
         nameCategoryLabel.frame = CGRect(x: 16,
                                y: 12,

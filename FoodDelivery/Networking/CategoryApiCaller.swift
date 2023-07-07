@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ApiCallerMain {
-    static let share = ApiCallerMain()
+final class CategoryApiCaller {
+    static let share = CategoryApiCaller()
     
     struct Constant {
         static let categoryAPIURL = URL(string: "https://run.mocky.io/v3/058729bd-1402-4578-88de-265481fd7d54")
@@ -25,7 +25,7 @@ final class ApiCallerMain {
             }
             else if let data = data {
                 do {
-                    let result = try JSONDecoder().decode(NewFile.self, from: data)
+                    let result = try JSONDecoder().decode(NewCategory.self, from: data)
                     print(result.сategories.count)
                     completion(.success(result.сategories))
                 } catch {
