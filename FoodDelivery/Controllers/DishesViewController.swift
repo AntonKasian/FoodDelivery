@@ -131,7 +131,7 @@ extension DishesViewController: UICollectionViewDataSource {
             return dishesCollectionContent.count
         } else if collectionView == horizontalCollectionView {
             
-            return 4
+            return 4 
         }
         return 0
     }

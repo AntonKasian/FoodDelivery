@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A33F3D22A59586B0031AA29 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A33F3D12A59586B0031AA29 /* SFProDisplay-Regular.ttf */; };
 		3A380FE12A57E4B40042B884 /* DishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE02A57E4B40042B884 /* DishesViewController.swift */; };
 		3A380FE32A57F3370042B884 /* DishesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE22A57F3370042B884 /* DishesViewCell.swift */; };
 		3A380FE52A57FBF90042B884 /* HorizontalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A380FE42A57FBF90042B884 /* HorizontalViewCell.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A33F3D12A59586B0031AA29 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		3A380FE02A57E4B40042B884 /* DishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesViewController.swift; sourceTree = "<group>"; };
 		3A380FE22A57F3370042B884 /* DishesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesViewCell.swift; sourceTree = "<group>"; };
 		3A380FE42A57FBF90042B884 /* HorizontalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalViewCell.swift; sourceTree = "<group>"; };
@@ -65,9 +67,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A33F3D02A59584B0031AA29 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3A33F3D12A59586B0031AA29 /* SFProDisplay-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		3A380FEC2A582B4A0042B884 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3A33F3D02A59584B0031AA29 /* Fonts */,
 				3A39B6742A56ACD5003507E3 /* AppDelegate.swift */,
 				3A39B6762A56ACD5003507E3 /* SceneDelegate.swift */,
 				3A380FED2A582B650042B884 /* SOLabel.swift */,
@@ -215,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A33F3D22A59586B0031AA29 /* SFProDisplay-Regular.ttf in Resources */,
 				3A39B6812A56ACDA003507E3 /* LaunchScreen.storyboard in Resources */,
 				3A39B67E2A56ACDA003507E3 /* Assets.xcassets in Resources */,
 			);

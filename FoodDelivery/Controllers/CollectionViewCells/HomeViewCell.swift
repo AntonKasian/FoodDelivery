@@ -24,7 +24,9 @@ class HomeViewCell: UICollectionViewCell {
         nameCategoryLabel.text = category.name
        // let font = UIFont(name: "SFProDisplay-Bold", size: 5)
         nameCategoryLabel.numberOfLines = 0
-        nameCategoryLabel.font = UIFont.systemFont(ofSize: 20)
+        //nameCategoryLabel.font = UIFont.systemFont(ofSize: 20)
+        nameCategoryLabel.font = UIFont(name: "SFProDisplay-Regular", size: 20)
+        nameCategoryLabel.textColor = .black // для темной темы
         
     }
     

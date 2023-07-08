@@ -26,10 +26,10 @@ class TabBarController: UITabBarController {
         let basketNavigationController = UINavigationController(rootViewController: basketViewController)
         let accountNavigationController = UINavigationController(rootViewController: accountViewController)
         
-        homeNavigationController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage(systemName: "newspaper"), tag: 0)
-        searchNavigationController.tabBarItem = UITabBarItem(title: "Sport", image: UIImage(systemName: "figure.hockey"), tag: 1)
-        basketNavigationController.tabBarItem = UITabBarItem(title: "Корзина", image: UIImage(systemName: "suitcase"), tag: 2)
-        accountNavigationController.tabBarItem = UITabBarItem(title: "Аккаунт", image: UIImage(systemName: "suitcase"), tag: 3)
+        homeNavigationController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage(named: "mainTabBar"), tag: 0)
+        searchNavigationController.tabBarItem = UITabBarItem(title: "Поиск", image: UIImage(named: "searchTabBar"), tag: 1)
+        basketNavigationController.tabBarItem = UITabBarItem(title: "Корзина", image: UIImage(named: "busketTabBar"), tag: 2)
+        accountNavigationController.tabBarItem = UITabBarItem(title: "Аккаунт", image: UIImage(named: "accountTabBar"), tag: 3)
         
         viewControllers = [homeNavigationController, searchNavigationController, basketNavigationController, accountNavigationController]
     }
@@ -50,6 +50,12 @@ class TabBarController: UITabBarController {
         tabBar.barTintColor = UIColor.systemBackground
         tabBar.isTranslucent = false
         tabBar.backgroundColor = UIColor.systemBackground
+        
+        let unselectedColor = UIColor(red: 165/255, green: 169/255, blue: 178/255, alpha: 1.0)
+        let selectedColor = UIColor(red: 51/255, green: 100/255, blue: 224/255, alpha: 1.0)
+        
+        tabBar.unselectedItemTintColor = unselectedColor
+        tabBar.tintColor = selectedColor
         
        // updateTabBarColors()
     }
