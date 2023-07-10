@@ -15,17 +15,20 @@ class DishesViewController: UIViewController {
         
         return image
     }()
-
+    
     let dishesLayout = UICollectionViewFlowLayout()
-
+    
     var horizontalCollectionView: UICollectionView?
     let horizontalLayout = UICollectionViewFlowLayout()
-
+    
     let dish = [Dish]()
     
     var dishesCollectionContent = [DishesCollectionContent]()
     var dishesCollectionView: UICollectionView?
-
+    
+    var selectedDishIndex: Int?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +74,8 @@ class DishesViewController: UIViewController {
     //MARK: - Network
     
     func getDishes() {
-        DishesApiCaller.shareDish.getRequest { result in
+        DishesApiCaller.shareDish.getRequest { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let dishes):
                 self.dishesCollectionContent = dishes.map { dish in
@@ -87,7 +91,7 @@ class DishesViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.dishesCollectionView?.reloadData()
                 }
-                
+
             case .failure(let error):
                 // Обработайте ошибку, если возникла
                 print("Ошибка при получении данных: \(error)")
@@ -95,6 +99,7 @@ class DishesViewController: UIViewController {
         }
     }
 
+    
     
     func dishesLayoutConfigure() {
         dishesLayout.scrollDirection = .vertical
@@ -109,7 +114,7 @@ class DishesViewController: UIViewController {
         horizontalLayout.minimumLineSpacing = 5
         horizontalLayout.minimumInteritemSpacing = 1
     }
-
+    
 }
 
 //MARK: - Extensions DishesViewController
@@ -118,12 +123,34 @@ extension DishesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        
+        selectedDishIndex = indexPath.row
         
         if collectionView == dishesCollectionView {
-            let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 445))
+            let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
             view.addSubview(popUpView)
             popUpView.center = view.center
+            
+            if let selectedDishIndex = selectedDishIndex {
+                let selectedDish = dishesCollectionContent[selectedDishIndex]
+                
+                popUpView.namePopUp.text = selectedDish.name
+                popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
+                popUpView.weightPopUp.text = "• \(selectedDish.weight) г"
+                popUpView.descriptionPopUp.text = selectedDish.description
+                
+                if let imageURL = URL(string: selectedDish.imageURL) {
+                    URLSession.shared.dataTask(with: imageURL) { data, _, error in
+                        if let error = error {
+                            print("Ошибка при загрузке изображения: \(error)")
+                        } else if let data = data, let dishImage = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                popUpView.dishImage = dishImage
+                            }
+                        }
+                    }.resume()
+                }
+            }
+            
             print("Dishes tapped")
         } else if collectionView == horizontalCollectionView {
             print("Horizontal tapped")
@@ -137,7 +164,7 @@ extension DishesViewController: UICollectionViewDataSource {
             return dishesCollectionContent.count
         } else if collectionView == horizontalCollectionView {
             
-            return 4 
+            return 4
         }
         return 0
     }
@@ -166,6 +193,5 @@ extension DishesViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
 }
-
-//MARK: - Extensions HorizontalViewController
-
+            
+            //MARK: - Extensions HorizontalViewController
