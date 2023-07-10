@@ -83,7 +83,7 @@ class PopUpView: UIView {
     
     func weightConfigure() {
         weightPopUp.font = UIFont(name: "SFProDisplay-Regular", size: 14)
-        weightPopUp.frame = CGRect(x: 70, y: 270, width: frame.width - 30 , height: 20)
+        weightPopUp.frame = CGRect(x: 60, y: 270, width: frame.width - 30 , height: 20)
         weightPopUp.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.4)
     }
     

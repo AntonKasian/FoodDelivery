@@ -29,6 +29,7 @@
 		3A39B69C2A56D86B003507E3 /* CategoryApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69B2A56D86B003507E3 /* CategoryApiCaller.swift */; };
 		3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */; };
 		3A7CFEC22A5BD9EA00024B12 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */; };
+		3A87A5862A5C089F0043A65C /* BasketViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87A5852A5C089F0043A65C /* BasketViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3A39B69B2A56D86B003507E3 /* CategoryApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryApiCaller.swift; sourceTree = "<group>"; };
 		3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionContent.swift; sourceTree = "<group>"; };
 		3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		3A87A5852A5C089F0043A65C /* BasketViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				3A39B6952A56CEDB003507E3 /* HomeViewCell.swift */,
 				3A380FE22A57F3370042B884 /* DishesViewCell.swift */,
 				3A380FE42A57FBF90042B884 /* HorizontalViewCell.swift */,
+				3A87A5852A5C089F0043A65C /* BasketViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				3A39B68E2A56AE6F003507E3 /* SearchViewController.swift in Sources */,
 				3A380FE12A57E4B40042B884 /* DishesViewController.swift in Sources */,
 				3A39B6922A56AE91003507E3 /* AccountViewController.swift in Sources */,
+				3A87A5862A5C089F0043A65C /* BasketViewCell.swift in Sources */,
 				3A39B6892A56AE20003507E3 /* TabBarAndNavigationController.swift in Sources */,
 				3A39B6752A56ACD5003507E3 /* AppDelegate.swift in Sources */,
 				3A39B6772A56ACD5003507E3 /* SceneDelegate.swift in Sources */,
