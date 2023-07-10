@@ -28,6 +28,7 @@
 		3A39B69A2A56D824003507E3 /* ModelMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B6992A56D824003507E3 /* ModelMain.swift */; };
 		3A39B69C2A56D86B003507E3 /* CategoryApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69B2A56D86B003507E3 /* CategoryApiCaller.swift */; };
 		3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */; };
+		3A7CFEC22A5BD9EA00024B12 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		3A39B6992A56D824003507E3 /* ModelMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMain.swift; sourceTree = "<group>"; };
 		3A39B69B2A56D86B003507E3 /* CategoryApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryApiCaller.swift; sourceTree = "<group>"; };
 		3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionContent.swift; sourceTree = "<group>"; };
+		3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		3A39B68A2A56AE4E003507E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A7CFEC02A5BD88B00024B12 /* PopUp */,
 				3A39B6942A56CEBE003507E3 /* CollectionViewCells */,
 				3A39B68B2A56AE65003507E3 /* HomeViewController.swift */,
 				3A380FE02A57E4B40042B884 /* DishesViewController.swift */,
@@ -166,6 +169,14 @@
 				3A380FEA2A5815770042B884 /* DishesApiCaller.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		3A7CFEC02A5BD88B00024B12 /* PopUp */ = {
+			isa = PBXGroup;
+			children = (
+				3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */,
+			);
+			path = PopUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +264,7 @@
 				3A380FE72A5813E70042B884 /* ModelDishes.swift in Sources */,
 				3A380FEE2A582B650042B884 /* SOLabel.swift in Sources */,
 				3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */,
+				3A7CFEC22A5BD9EA00024B12 /* PopUpViewController.swift in Sources */,
 				3A39B68C2A56AE65003507E3 /* HomeViewController.swift in Sources */,
 				3A380FE32A57F3370042B884 /* DishesViewCell.swift in Sources */,
 				3A39B69C2A56D86B003507E3 /* CategoryApiCaller.swift in Sources */,

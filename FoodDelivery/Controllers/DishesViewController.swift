@@ -117,7 +117,13 @@ class DishesViewController: UIViewController {
 extension DishesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        
+        
         if collectionView == dishesCollectionView {
+            let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 445))
+            view.addSubview(popUpView)
+            popUpView.center = view.center
             print("Dishes tapped")
         } else if collectionView == horizontalCollectionView {
             print("Horizontal tapped")
