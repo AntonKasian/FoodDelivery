@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
         CategoryApiCaller.share.getRequest { result in
             switch result {
             case .success(let categories):
-                self.categoryCollectionContent = categories.map { MainCollectionContent(name: $0.name, imageURL: $0.imageURL) }
+                self.categoryCollectionContent = categories.map { MainCollectionContent(id: $0.id, name: $0.name, imageURL: $0.imageURL) }
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
                 }

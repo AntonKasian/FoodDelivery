@@ -7,7 +7,26 @@
 
 import UIKit
 
-class DishesViewController: UIViewController {
+class DishesViewController: UIViewController, PopUpViewDelegate {
+    
+    func addDishToBasket(_ dish: Dish) {
+        guard let tabBarController = tabBarController as? TabBarController else {
+            print("Error tabBar with addDishToBasket in DishesViewController")
+            return
+        }
+        
+        for viewController in tabBarController.viewControllers ?? [] {
+            if let basketNavigationController = viewController as? UINavigationController,
+               let basketViewController = basketNavigationController.viewControllers.first as? BasketViewController {
+                print("In addDishToBasket in DishesViewController all good")
+                basketViewController.addDishToBasket(dish)
+                return
+            }
+        }
+        
+        print("Error with addDishToBasket in DishesViewController")
+    }
+
     
     private let photoView: UIView = {
         let image = UIImageView()
@@ -80,6 +99,7 @@ class DishesViewController: UIViewController {
             case .success(let dishes):
                 self.dishesCollectionContent = dishes.map { dish in
                     DishesCollectionContent(
+                        id: dish.id,
                         name: dish.name,
                         price: dish.price,
                         weight: dish.weight,
@@ -122,22 +142,30 @@ class DishesViewController: UIViewController {
 extension DishesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+
         selectedDishIndex = indexPath.row
-        
+
         if collectionView == dishesCollectionView {
             let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
+            popUpView.delegate = self
             view.addSubview(popUpView)
             popUpView.center = view.center
-            
+
             if let selectedDishIndex = selectedDishIndex {
-                let selectedDish = dishesCollectionContent[selectedDishIndex]
-                
+//                let selectedDish = dishesCollectionContent[selectedDishIndex]
+//
+//                popUpView.selectedDish = selectedDish
+                let selectedDishesCollectionContent = dishesCollectionContent[selectedDishIndex]
+
+                let selectedDish = Dish(id: selectedDishesCollectionContent.id, name: selectedDishesCollectionContent.name, price: selectedDishesCollectionContent.price, weight: selectedDishesCollectionContent.weight, description: selectedDishesCollectionContent.description, imageURL: selectedDishesCollectionContent.imageURL, tegs: selectedDishesCollectionContent.tegs)
+
+                    popUpView.selectedDish = selectedDish
+
                 popUpView.namePopUp.text = selectedDish.name
                 popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
                 popUpView.weightPopUp.text = "• \(selectedDish.weight) г"
                 popUpView.descriptionPopUp.text = selectedDish.description
-                
+
                 if let imageURL = URL(string: selectedDish.imageURL) {
                     URLSession.shared.dataTask(with: imageURL) { data, _, error in
                         if let error = error {
@@ -150,12 +178,14 @@ extension DishesViewController: UICollectionViewDelegate {
                     }.resume()
                 }
             }
-            
+
             print("Dishes tapped")
+
         } else if collectionView == horizontalCollectionView {
             print("Horizontal tapped")
         }
     }
+
 }
 
 extension DishesViewController: UICollectionViewDataSource {

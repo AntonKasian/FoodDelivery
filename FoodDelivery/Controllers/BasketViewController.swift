@@ -9,6 +9,13 @@ import UIKit
 
 class BasketViewController: UIViewController {
     
+    var basketItems: [Dish] = []
+    
+    func addDishToBasket(_ dish: Dish) {
+        basketItems.append(dish)
+        tableView.reloadData() // Обновите таблицу для отображения добавленного блюда в корзине
+    }
+    
     private let photoView: UIView = {
         let image = UIImageView()
         image.image = UIImage(named: "AccountPhoto")
@@ -43,8 +50,9 @@ class BasketViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: photoView)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: locationView)
         
-        view.addSubview(tableView)
         tableViewConfigure()
+        view.addSubview(tableView)
+        
     }
     
     func locationViewConfigure() {
@@ -87,17 +95,29 @@ extension BasketViewController: UITableViewDelegate {
 extension BasketViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        return basketItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BasketCell", for: indexPath) as! BasketViewCell
-        //let basketCell = BasketViewCell()
-       // var content = cell.defaultContentConfiguration()
-//        content.text = "Hello world"
-//
         
-       // cell.contentConfiguration = content
+        let basketItem = basketItems[indexPath.row]
+        
+        cell.dishNameLabel.text = basketItem.name
+        cell.priceBusketLabel.text = "\(basketItem.price) ₽"
+        cell.weightBusketLabel.text = "• \(basketItem.weight) г"
+        
+        if let imageURL = URL(string: basketItem.imageURL) {
+            URLSession.shared.dataTask(with: imageURL) { data, _, error in
+                if let error = error {
+                    print("Ошибка при загрузке изображения: \(error)")
+                } else if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        cell.busketImageView.image = image
+                    }
+                }
+            }.resume()
+        }
         
         return cell
     }

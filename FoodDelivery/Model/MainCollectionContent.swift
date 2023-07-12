@@ -8,12 +8,12 @@
 import Foundation
 
 class MainCollectionContent {
-    //let id: String
+    let id: Int
     let name: String
     let imageURL: String
     
-    init(name: String, imageURL: String) {
-       // self.id = id
+    init(id: Int, name: String, imageURL: String) {
+        self.id = id
         self.name = name
         self.imageURL = imageURL
     }

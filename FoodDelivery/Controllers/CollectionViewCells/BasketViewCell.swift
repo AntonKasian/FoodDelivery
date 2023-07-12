@@ -59,24 +59,24 @@ class BasketViewCell: UITableViewCell {
     
     func busketImageConfigure() {
         busketImageView.frame = CGRect(x: 0, y: 0, width: 61, height: 61)
-        busketImageView.backgroundColor = .blue
+        busketImageView.backgroundColor = #colorLiteral(red: 0.9733045697, green: 0.9686054587, blue: 0.9599207044, alpha: 1)
     }
     
     func dishNameConfigure() {
-        dishNameLabel.text = "Рыба с овощами и рисом"
+        //dishNameLabel.text = "Рыба с овощами и рисом"
         dishNameLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         dishNameLabel.numberOfLines = 0
         dishNameLabel.frame = CGRect(x: 70, y: 5, width: 110, height: 35)
     }
     
     func priceConfigure() {
-        priceBusketLabel.text = "8799 ₽"
+        //priceBusketLabel.text = "8799 ₽"
         priceBusketLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         priceBusketLabel.frame = CGRect(x: 70, y: 45, width: 60, height: 14)
     }
     
     func weightConfigure() {
-        weightBusketLabel.text = "· 499г"
+        //weightBusketLabel.text = "· 499г"
         weightBusketLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         weightBusketLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.45)
         weightBusketLabel.frame = CGRect(x: 120, y: 45, width: 60, height: 14)

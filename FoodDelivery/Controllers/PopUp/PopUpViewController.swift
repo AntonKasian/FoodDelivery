@@ -7,7 +7,29 @@
 
 import UIKit
 
+protocol PopUpViewDelegate: AnyObject {
+    func addDishToBasket(_ dish: Dish)
+}
+
 class PopUpView: UIView {
+    
+    weak var delegate: PopUpViewDelegate?
+    
+    var selectedDish: Dish? { // мб надо оставить Dish
+        didSet {
+            if let selectedDish = selectedDish {
+                // Update UI with selectedDish data
+                namePopUp.text = selectedDish.name
+                pricePopUp.text = "\(selectedDish.price) ₽"
+                weightPopUp.text = "• \(selectedDish.weight) г"
+                descriptionPopUp.text = selectedDish.description
+                
+                // Load dish image asynchronously if needed
+            }
+        }
+    }
+    
+    
     let closeButton = UIButton()
     let favouriteButton = UIButton()
     let imageView = UIImageView()
@@ -100,10 +122,23 @@ class PopUpView: UIView {
         addBusketButton.frame = CGRect(x: 15, y: 412, width: frame.width - 30, height: 48)
         addBusketButton.backgroundColor = buttonColor
         addBusketButton.layer.cornerRadius = 15
+        addBusketButton.addTarget(self, action: #selector(addBusketButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func addBusketButtonTapped() {
+        
+        guard let selectedDish = selectedDish else {
+            print("Something wrong")
+            return
+        }
+        
+        delegate?.addDishToBasket(selectedDish)
+        
+        removeFromSuperview()
     }
     
     @objc func closeButtonTapped() {

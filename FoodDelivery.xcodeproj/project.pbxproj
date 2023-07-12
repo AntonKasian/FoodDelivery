@@ -30,6 +30,7 @@
 		3A39B69E2A56DC55003507E3 /* MainCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */; };
 		3A7CFEC22A5BD9EA00024B12 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */; };
 		3A87A5862A5C089F0043A65C /* BasketViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87A5852A5C089F0043A65C /* BasketViewCell.swift */; };
+		3A87AC772A5E7CC1006AE449 /* BusketCollectionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87AC762A5E7CC1006AE449 /* BusketCollectionContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionContent.swift; sourceTree = "<group>"; };
 		3A7CFEC12A5BD9E900024B12 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		3A87A5852A5C089F0043A65C /* BasketViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewCell.swift; sourceTree = "<group>"; };
+		3A87AC762A5E7CC1006AE449 /* BusketCollectionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusketCollectionContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				3A39B69D2A56DC55003507E3 /* MainCollectionContent.swift */,
 				3A380FE62A5813E70042B884 /* ModelDishes.swift */,
 				3A380FE82A5814860042B884 /* DishesCollectionContent.swift */,
+				3A87AC762A5E7CC1006AE449 /* BusketCollectionContent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			files = (
 				3A39B69A2A56D824003507E3 /* ModelMain.swift in Sources */,
 				3A39B6902A56AE87003507E3 /* BasketViewController.swift in Sources */,
+				3A87AC772A5E7CC1006AE449 /* BusketCollectionContent.swift in Sources */,
 				3A380FE52A57FBF90042B884 /* HorizontalViewCell.swift in Sources */,
 				3A380FEB2A5815770042B884 /* DishesApiCaller.swift in Sources */,
 				3A39B6962A56CEDB003507E3 /* HomeViewCell.swift in Sources */,
