@@ -25,13 +25,6 @@ class HorizontalViewCell: UICollectionViewCell {
         fatalError()
     }
     
-//    func labelConfigure(with dish: DishesCollectionContent) {
-//        horizontaNameLabel.text = dish.tegs.description
-//        horizontaNameLabel.numberOfLines = 0
-//        horizontaNameLabel.font = UIFont.systemFont(ofSize: 14)
-//
-//    }
-    
     func labelConfigure(with tagNames: [String]) {
         horizontaNameLabel.text = tagNames.joined(separator: ", ")
         horizontaNameLabel.numberOfLines = 0

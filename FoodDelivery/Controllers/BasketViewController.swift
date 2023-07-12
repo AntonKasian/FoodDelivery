@@ -81,7 +81,7 @@ class BasketViewController: UIViewController {
         
 
         payButton.frame = CGRect(x: 5, y: view.bounds.height - 140, width: view.bounds.width - 10, height: 48)
-        let buttonText = "Оплатить \(formattedPrice)"
+        let buttonText = "Оплатить \(formattedPrice) ₽"
         payButton.setTitle(buttonText, for: .normal)
     }
     
@@ -202,7 +202,7 @@ extension BasketViewController: BasketViewCellDelegate {
         numberFormatter.groupingSeparator = " "
         
         if let formattedPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) {
-            let buttonText = "Оплатить \(formattedPrice)"
+            let buttonText = "Оплатить \(formattedPrice) ₽"
             payButton.setTitle(buttonText, for: .normal)
         }
     }

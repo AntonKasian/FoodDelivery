@@ -26,6 +26,10 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         
         print("Error with addDishToBasket in DishesViewController")
     }
+    
+    var tagNames: [String] = []
+    var selectedTag: Teg?
+
 
     
     private let photoView: UIView = {
@@ -109,6 +113,9 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
                     )
                 }
                 DispatchQueue.main.async {
+                    self.tagNames = Array(Set(dishes.flatMap { $0.tegs.map { $0.rawValue } }))
+                    self.horizontalCollectionView?.reloadData()
+
                     self.dishesCollectionView?.reloadData()
                 }
 
@@ -140,27 +147,75 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
 //MARK: - Extensions DishesViewController
 
 extension DishesViewController: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        collectionView.deselectItem(at: indexPath, animated: true)
+//
+//        selectedDishIndex = indexPath.row
+//
+//        if collectionView == dishesCollectionView {
+//            let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
+//            popUpView.delegate = self
+//            view.addSubview(popUpView)
+//            popUpView.center = view.center
+//
+//            if let selectedDishIndex = selectedDishIndex {
+////                let selectedDish = dishesCollectionContent[selectedDishIndex]
+////
+////                popUpView.selectedDish = selectedDish
+//                let selectedDishesCollectionContent = dishesCollectionContent[selectedDishIndex]
+//
+//                let selectedDish = Dish(id: selectedDishesCollectionContent.id, name: selectedDishesCollectionContent.name, price: selectedDishesCollectionContent.price, weight: selectedDishesCollectionContent.weight, description: selectedDishesCollectionContent.description, imageURL: selectedDishesCollectionContent.imageURL, tegs: selectedDishesCollectionContent.tegs)
+//
+//                    popUpView.selectedDish = selectedDish
+//
+//                popUpView.namePopUp.text = selectedDish.name
+//                popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
+//                popUpView.weightPopUp.text = "• \(selectedDish.weight) г"
+//                popUpView.descriptionPopUp.text = selectedDish.description
+//
+//                if let imageURL = URL(string: selectedDish.imageURL) {
+//                    URLSession.shared.dataTask(with: imageURL) { data, _, error in
+//                        if let error = error {
+//                            print("Ошибка при загрузке изображения: \(error)")
+//                        } else if let data = data, let dishImage = UIImage(data: data) {
+//                            DispatchQueue.main.async {
+//                                popUpView.dishImage = dishImage
+//                            }
+//                        }
+//                    }.resume()
+//                }
+//            }
+//
+//            print("Dishes tapped")
+//
+//        } else if collectionView == horizontalCollectionView {
+//            selectedTag = Teg(rawValue: tagNames[indexPath.item])
+//            dishesCollectionView?.reloadData()
+//            print("Horizontal tapped")
+//        }
+//    }
+
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
-        selectedDishIndex = indexPath.row
-
         if collectionView == dishesCollectionView {
-            let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
-            popUpView.delegate = self
-            view.addSubview(popUpView)
-            popUpView.center = view.center
+            var filteredDishes = dishesCollectionContent
+            if let selectedTag = selectedTag {
+                filteredDishes = filteredDishes.filter { $0.tegs.contains(selectedTag) }
+            }
 
-            if let selectedDishIndex = selectedDishIndex {
-//                let selectedDish = dishesCollectionContent[selectedDishIndex]
-//
-//                popUpView.selectedDish = selectedDish
-                let selectedDishesCollectionContent = dishesCollectionContent[selectedDishIndex]
+            let selectedDishIndex = indexPath.item
 
+            if selectedDishIndex < filteredDishes.count {
+                let selectedDishesCollectionContent = filteredDishes[selectedDishIndex]
                 let selectedDish = Dish(id: selectedDishesCollectionContent.id, name: selectedDishesCollectionContent.name, price: selectedDishesCollectionContent.price, weight: selectedDishesCollectionContent.weight, description: selectedDishesCollectionContent.description, imageURL: selectedDishesCollectionContent.imageURL, tegs: selectedDishesCollectionContent.tegs)
 
-                    popUpView.selectedDish = selectedDish
-
+                let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
+                popUpView.delegate = self
+                view.addSubview(popUpView)
+                popUpView.center = view.center
+                popUpView.selectedDish = selectedDish
                 popUpView.namePopUp.text = selectedDish.name
                 popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
                 popUpView.weightPopUp.text = "• \(selectedDish.weight) г"
@@ -178,11 +233,9 @@ extension DishesViewController: UICollectionViewDelegate {
                     }.resume()
                 }
             }
-
-            print("Dishes tapped")
-
         } else if collectionView == horizontalCollectionView {
-            print("Horizontal tapped")
+            selectedTag = Teg(rawValue: tagNames[indexPath.item])
+            dishesCollectionView?.reloadData()
         }
     }
 
@@ -190,35 +243,41 @@ extension DishesViewController: UICollectionViewDelegate {
 
 extension DishesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         if collectionView == dishesCollectionView {
-            return dishesCollectionContent.count
-        } else if collectionView == horizontalCollectionView {
-            
-            return 4
-        }
-        return 0
+              var filteredCount = dishesCollectionContent.count
+              if let selectedTag = selectedTag {
+                  let filteredDishes = dishesCollectionContent.filter { $0.tegs.contains(selectedTag) }
+                  filteredCount = filteredDishes.count
+              }
+              return filteredCount
+          } else if collectionView == horizontalCollectionView {
+              return tagNames.count
+          }
+          return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == dishesCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesCell", for: indexPath) as! DishesViewCell
-            
-            let dishes = dishesCollectionContent[indexPath.row]
-            cell.labelConfigure(with: dishes)
-            cell.imageConfigure(with: dishes)
-            cell.layer.cornerRadius = 10
-            
-            return cell
+
+            var filteredDishes = dishesCollectionContent
+                if let selectedTag = selectedTag {
+                    filteredDishes = filteredDishes.filter { $0.tegs.contains(selectedTag) }
+                }
+
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesCell", for: indexPath) as! DishesViewCell
+                let dish = filteredDishes[indexPath.item]
+                cell.labelConfigure(with: dish)
+                cell.imageConfigure(with: dish)
+                cell.layer.cornerRadius = 10
+
+                return cell
         } else if collectionView == horizontalCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalCell", for: indexPath) as! HorizontalViewCell
-            
-            let tagNames = ["Все меню", "С рисом", "С рыбой", "Салаты"]
             let tagName = tagNames[indexPath.item]
-            
-            // Передайте объект DishesCollectionContent в ячейку
             cell.labelConfigure(with: [tagName])
-            
             return cell
+            
         }
         return UICollectionViewCell()
     }
