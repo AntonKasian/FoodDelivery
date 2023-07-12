@@ -18,11 +18,17 @@ class BasketViewCell: UITableViewCell {
     let quantityCount = UILabel()
     let quantityPlusButton = UIButton()
     
+    weak var basketViewController: BasketViewController?
+
+    var currentQuantity: Int = 1 {
+            didSet {
+                updatePriceLabel()
+            }
+        }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "BasketCell")
         
-        
-        // Добавление customView в иерархию ячейки
         contentView.addSubview(customView)
         contentView.addSubview(busketImageView)
         contentView.addSubview(dishNameLabel)
@@ -42,6 +48,10 @@ class BasketViewCell: UITableViewCell {
         minusButtonConfigure()
         countConfigure()
         plusButtonConfigure()
+        
+        quantityPlusButton.addTarget(self, action: #selector(increaseQuantity), for: .touchUpInside)
+        quantityMinusButton.addTarget(self, action: #selector(decreaseQuantity), for: .touchUpInside)
+        
     }
     
     func customViewConfigure() {
@@ -63,20 +73,17 @@ class BasketViewCell: UITableViewCell {
     }
     
     func dishNameConfigure() {
-        //dishNameLabel.text = "Рыба с овощами и рисом"
         dishNameLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         dishNameLabel.numberOfLines = 0
         dishNameLabel.frame = CGRect(x: 70, y: 5, width: 110, height: 35)
     }
     
     func priceConfigure() {
-        //priceBusketLabel.text = "8799 ₽"
         priceBusketLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         priceBusketLabel.frame = CGRect(x: 70, y: 45, width: 60, height: 14)
     }
     
     func weightConfigure() {
-        //weightBusketLabel.text = "· 499г"
         weightBusketLabel.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         weightBusketLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.45)
         weightBusketLabel.frame = CGRect(x: 120, y: 45, width: 60, height: 14)
@@ -125,6 +132,36 @@ class BasketViewCell: UITableViewCell {
         quantityPlusButton.centerYAnchor.constraint(equalTo: quantityView.centerYAnchor).isActive = true
         quantityPlusButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
         quantityPlusButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    }
+    
+    func updatePriceLabel() {
+        if let indexPath = basketViewController?.tableView.indexPath(for: self),
+           let basketItem = basketViewController?.basketItems[indexPath.row]
+        {
+            let totalPrice = basketItem.price * currentQuantity
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.groupingSeparator = " "
+            
+            if let formattedPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) {
+                priceBusketLabel.text = "\(formattedPrice) ₽"
+            }
+        }
+    }
+
+    @objc func increaseQuantity() {
+        currentQuantity += 1
+        quantityCount.text = "\(currentQuantity)"
+        updatePriceLabel()
+    }
+    
+    @objc func decreaseQuantity() {
+        if currentQuantity > 1 {
+            currentQuantity -= 1
+            quantityCount.text = "\(currentQuantity)"
+            updatePriceLabel()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

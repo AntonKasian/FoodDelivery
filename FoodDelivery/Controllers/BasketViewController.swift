@@ -33,6 +33,7 @@ class BasketViewController: UIViewController {
     let locationView = UIView()
     let imageView = UIImageView()
     let tableView = UITableView()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +104,10 @@ extension BasketViewController: UITableViewDataSource {
         
         let basketItem = basketItems[indexPath.row]
         
+        
+        cell.basketViewController = self
+        
+        
         cell.dishNameLabel.text = basketItem.name
         cell.priceBusketLabel.text = "\(basketItem.price) ₽"
         cell.weightBusketLabel.text = "• \(basketItem.weight) г"
@@ -128,6 +133,8 @@ extension BasketViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
     }
     
 }
