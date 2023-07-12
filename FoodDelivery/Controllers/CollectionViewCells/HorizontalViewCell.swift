@@ -10,6 +10,15 @@ import UIKit
 class HorizontalViewCell: UICollectionViewCell {
     static let identifire = "HorizontalCell"
     
+    override var isSelected: Bool {
+        didSet {
+            contentView.backgroundColor = isSelected ? UIColor(red: 51/255, green: 100/255, blue: 224/255, alpha: 1.0) : UIColor(red: 248/255, green: 247/255, blue: 245/255, alpha: 1.0)
+                        horizontaNameLabel.textColor = isSelected ? .white : .black
+            
+            //horizontaNameLabel.textColor = isSelected ? .white : .black
+        }
+    }
+    
     let horizontaNameLabel = UILabel()
     private let dish = [Dish]()
     
@@ -39,6 +48,7 @@ class HorizontalViewCell: UICollectionViewCell {
                                           width: contentView.bounds.width,
                                           height: contentView.bounds.height)
         horizontaNameLabel.textAlignment = .center
+        horizontaNameLabel.textColor = isSelected ? .white : .black
         
     }
 }

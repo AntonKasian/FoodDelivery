@@ -15,19 +15,19 @@ class PopUpView: UIView {
     
     weak var delegate: PopUpViewDelegate?
     
-    var selectedDish: Dish? { // мб надо оставить Dish
+    var selectedDish: Dish? {
         didSet {
             if let selectedDish = selectedDish {
-                // Update UI with selectedDish data
+                
                 namePopUp.text = selectedDish.name
                 pricePopUp.text = "\(selectedDish.price) ₽"
                 weightPopUp.text = "• \(selectedDish.weight) г"
                 descriptionPopUp.text = selectedDish.description
-                
-                // Load dish image asynchronously if needed
+
             }
         }
     }
+    
     
     
     let closeButton = UIButton()
@@ -137,7 +137,6 @@ class PopUpView: UIView {
         }
         
         delegate?.addDishToBasket(selectedDish)
-        
         removeFromSuperview()
     }
     

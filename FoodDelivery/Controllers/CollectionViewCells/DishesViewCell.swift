@@ -12,7 +12,7 @@ class DishesViewCell: UICollectionViewCell {
     static let identifire = "DishesCell"
     
     let dishesNameLabel = SOLabel()
-    private let dishesImageView = UIImageView()
+    let dishesImageView = UIImageView()
     private let dish = [Dish]()
     
     func labelConfigure(with dish: DishesCollectionContent) {
