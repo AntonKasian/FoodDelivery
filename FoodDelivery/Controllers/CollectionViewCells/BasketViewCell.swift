@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol BasketViewCellDelegate: AnyObject {
+    func updatePayButtonPrice() 
+}
+
 class BasketViewCell: UITableViewCell {
+    
+    weak var delegate: BasketViewCellDelegate?
     let customView = UIView()
     let busketImageView = UIImageView()
     let dishNameLabel = UILabel()
@@ -154,6 +160,7 @@ class BasketViewCell: UITableViewCell {
         currentQuantity += 1
         quantityCount.text = "\(currentQuantity)"
         updatePriceLabel()
+        delegate?.updatePayButtonPrice()
     }
     
     @objc func decreaseQuantity() {
@@ -161,6 +168,7 @@ class BasketViewCell: UITableViewCell {
             currentQuantity -= 1
             quantityCount.text = "\(currentQuantity)"
             updatePriceLabel()
+            delegate?.updatePayButtonPrice()
         }
     }
     
