@@ -32,6 +32,8 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
     var selectedDishIndex: Int?
     var selectedHorizontalIndex: Int?
 
+    var dimmingView: UIView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,22 +76,40 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         
     }
     
+    func showDimmingView() {
+        dimmingView = UIView(frame: view.bounds)
+        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        dimmingView?.alpha = 0.0
+        view.addSubview(dimmingView!)
+
+        UIView.animate(withDuration: 0.3) {
+            self.dimmingView?.alpha = 1.0
+        }
+    }
+    
+    func hideDimmingView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.dimmingView?.alpha = 0.0
+        }) { _ in
+            self.dimmingView?.removeFromSuperview()
+            self.dimmingView = nil
+        }
+    }
+    
     func addDishToBasket(_ dish: Dish) {
         guard let tabBarController = tabBarController as? TabBarController else {
             print("Error tabBar with addDishToBasket in DishesViewController")
             return
         }
-        
+
         for viewController in tabBarController.viewControllers ?? [] {
             if let basketNavigationController = viewController as? UINavigationController,
                let basketViewController = basketNavigationController.viewControllers.first as? BasketViewController {
                 print("In addDishToBasket in DishesViewController all good")
                 basketViewController.addDishToBasket(dish)
-                return
+                break
             }
         }
-        
-        print("Error with addDishToBasket in DishesViewController")
     }
     
     //MARK: - Network
@@ -146,71 +166,14 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
 
 //MARK: - Extensions DishesViewController
 
-extension DishesViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//
-//        if collectionView == dishesCollectionView {
-//            var filteredDishes = dishesCollectionContent
-//            if let selectedTag = selectedTag {
-//                filteredDishes = filteredDishes.filter { $0.tegs.contains(selectedTag) }
-//            }
-//
-//            let selectedDishIndex = indexPath.item
-//
-//            if selectedDishIndex < filteredDishes.count {
-//                let selectedDishesCollectionContent = filteredDishes[selectedDishIndex]
-//                let selectedDish = Dish(id: selectedDishesCollectionContent.id, name: selectedDishesCollectionContent.name, price: selectedDishesCollectionContent.price, weight: selectedDishesCollectionContent.weight, description: selectedDishesCollectionContent.description, imageURL: selectedDishesCollectionContent.imageURL, tegs: selectedDishesCollectionContent.tegs)
-//
-//                let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
-//                popUpView.delegate = self
-//                view.addSubview(popUpView)
-//                popUpView.center = view.center
-//                popUpView.selectedDish = selectedDish
-//                popUpView.namePopUp.text = selectedDish.name
-//                popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
-//                popUpView.weightPopUp.text = "• \(selectedDish.weight) г"
-//                popUpView.descriptionPopUp.text = selectedDish.description
-//
-//                if let imageURL = URL(string: selectedDish.imageURL) {
-//                    URLSession.shared.dataTask(with: imageURL) { data, _, error in
-//                        if let error = error {
-//                            print("Ошибка при загрузке изображения: \(error)")
-//                        } else if let data = data, let dishImage = UIImage(data: data) {
-//                            DispatchQueue.main.async {
-//                                popUpView.dishImage = dishImage
-//                            }
-//                        }
-//                    }.resume()
-//                }
-//            }
-//
-//
-//        } else if collectionView == horizontalCollectionView {
-//           selectedTag = Teg(rawValue: tagNames[indexPath.item])
-//
-//            if let selectedHorizontalIndex = selectedHorizontalIndex {
-//                        // Снять выделение с предыдущей выбранной ячейки
-//                        let previousIndexPath = IndexPath(item: selectedHorizontalIndex, section: 0)
-//                        if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? HorizontalViewCell {
-//                            previousCell.isSelected = false
-//                        }
-//                    }
-//
-//                    // Выделить выбранную ячейку
-//                    let cell = collectionView.cellForItem(at: indexPath) as? HorizontalViewCell
-//                    cell?.isSelected = true
-//
-//                    selectedHorizontalIndex = indexPath.item
-//
-//            dishesCollectionView?.reloadData()
-//        }
-//    }
-    
+extension DishesViewController: UICollectionViewDelegate {    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
         if collectionView == dishesCollectionView {
+            
+            showDimmingView()
+            
             var filteredDishes = dishesCollectionContent
             if let selectedTag = selectedTag {
                 filteredDishes = filteredDishes.filter { $0.tegs.contains(selectedTag) }
@@ -234,8 +197,11 @@ extension DishesViewController: UICollectionViewDelegate {
                 
                 popUpView.delegate = self
                 view.addSubview(popUpView)
+                popUpView.tabBarController = self.tabBarController
+                popUpView.dimmingView = dimmingView
                 
-
+                popUpView.darkenTabBar()
+                
                 popUpView.center = view.center
                 popUpView.selectedDish = selectedDish
                 popUpView.namePopUp.text = selectedDish.name

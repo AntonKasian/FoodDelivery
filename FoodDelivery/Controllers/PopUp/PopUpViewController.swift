@@ -29,7 +29,10 @@ class PopUpView: UIView {
     }
     
     
+    var dimmingView: UIView?
     
+    weak var tabBarController: UITabBarController?
+
     let closeButton = UIButton()
     let favouriteButton = UIButton()
     let imageView = UIImageView()
@@ -66,6 +69,24 @@ class PopUpView: UIView {
         weightConfigure()
         descriptionConfigure()
         addBusketConfigure()
+    }
+    
+    // TAB BAR
+    
+    func darkenTabBar() {
+        tabBarController?.tabBar.isTranslucent = true
+        let color = dimmingView?.backgroundColor 
+        tabBarController?.tabBar.barTintColor = color
+    }
+    
+    func restoreTabBar() {
+        tabBarController?.tabBar.isTranslucent = false
+        tabBarController?.tabBar.barTintColor = nil
+    }
+    
+    override func removeFromSuperview() {
+        super.removeFromSuperview()
+        restoreTabBar()
     }
     
     func closeButtonConfigure() {
@@ -129,6 +150,28 @@ class PopUpView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func showDimmingView() {
+        dimmingView = UIView(frame: superview?.bounds ?? .zero)
+//        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        dimmingView?.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        dimmingView?.alpha = 0.0
+        
+        superview?.addSubview(dimmingView!)
+
+        UIView.animate(withDuration: 0.3) {
+            self.dimmingView?.alpha = 1.0
+        }
+    }
+    
+    func hideDimmingView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.dimmingView?.alpha = 0.0
+        }) { _ in
+            self.dimmingView?.removeFromSuperview()
+            self.dimmingView = nil
+        }
+    }
+    
     @objc func addBusketButtonTapped() {
         
         guard let selectedDish = selectedDish else {
@@ -137,10 +180,24 @@ class PopUpView: UIView {
         }
         
         delegate?.addDishToBasket(selectedDish)
+        hideDimmingView()
         removeFromSuperview()
     }
     
     @objc func closeButtonTapped() {
+        hideDimmingView()
         removeFromSuperview()
     }
+    
+//    func darkenTabBar() {
+//
+//        guard let tabBar = UIApplication.shared.windows.first?.rootViewController?.view.window?.windowScene?.delegate as? SceneDelegate else {
+//            print("Something wrong with tabBar")
+//            return
+//        }
+//        tabBar.tabBarController?.tabBar.darken()
+//       // tabBar.tabBarController?.tabBar.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.4)
+//    }
+    
+
 }

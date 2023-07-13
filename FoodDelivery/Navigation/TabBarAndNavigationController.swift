@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         generateTabBar()
         configureTabBar()
+        
     }
 
     func generateTabBar() {
@@ -56,25 +57,10 @@ class TabBarController: UITabBarController {
         
         tabBar.unselectedItemTintColor = unselectedColor
         tabBar.tintColor = selectedColor
-        
-       // updateTabBarColors()
     }
-    
-//    private func updateTabBarColors() {
-//        if traitCollection.userInterfaceStyle == .dark {
-//            tabBar.tintColor = UIColor.tabBarItemAccentDark
-//            tabBar.unselectedItemTintColor = UIColor.tabBarItemUnselectedDark
-//        } else {
-//            tabBar.tintColor = UIColor.tabBarItemAccentWhite
-//            tabBar.unselectedItemTintColor = UIColor.tabBarItemUnselectedWhite
-//        }
-//    }
-    
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        
-//        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
-//            updateTabBarColors()
-//        }
-//    }
+
 }
+
+
+
+
