@@ -27,10 +27,6 @@ struct Dish: Codable {
     }
 }
 
-//struct Teg: Codable {
-//    let name: String
-//}
-
 enum Teg: String, Codable {
     case allMenu = "Все меню"
     case withRice = "С рисом"

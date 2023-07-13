@@ -28,11 +28,9 @@ class PopUpView: UIView {
         }
     }
     
-    
     var dimmingView: UIView?
-    
     weak var tabBarController: UITabBarController?
-
+    
     let closeButton = UIButton()
     let favouriteButton = UIButton()
     let imageView = UIImageView()
@@ -71,7 +69,7 @@ class PopUpView: UIView {
         addBusketConfigure()
     }
     
-    // TAB BAR
+    //MARK: - TAB BAR
     
     func darkenTabBar() {
         tabBarController?.tabBar.isTranslucent = true
@@ -87,7 +85,10 @@ class PopUpView: UIView {
     override func removeFromSuperview() {
         super.removeFromSuperview()
         restoreTabBar()
+        
     }
+    
+    //MARK: - Configure
     
     func closeButtonConfigure() {
         closeButton.setImage(UIImage(named: "ClosePopUp"), for: .normal)
@@ -146,13 +147,8 @@ class PopUpView: UIView {
         addBusketButton.addTarget(self, action: #selector(addBusketButtonTapped), for: .touchUpInside)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func showDimmingView() {
         dimmingView = UIView(frame: superview?.bounds ?? .zero)
-//        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         dimmingView?.backgroundColor = UIColor(white: 0, alpha: 0.2)
         dimmingView?.alpha = 0.0
         
@@ -189,15 +185,8 @@ class PopUpView: UIView {
         removeFromSuperview()
     }
     
-//    func darkenTabBar() {
-//
-//        guard let tabBar = UIApplication.shared.windows.first?.rootViewController?.view.window?.windowScene?.delegate as? SceneDelegate else {
-//            print("Something wrong with tabBar")
-//            return
-//        }
-//        tabBar.tabBarController?.tabBar.darken()
-//       // tabBar.tabBarController?.tabBar.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0.4)
-//    }
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 }

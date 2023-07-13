@@ -13,7 +13,7 @@ class BasketViewController: UIViewController {
     
     func addDishToBasket(_ dish: Dish) {
         basketItems.append(dish)
-        tableView.reloadData() // Обновите таблицу для отображения добавленного блюда в корзине
+        tableView.reloadData()
         updatePayButtonPrice()
     }
     
@@ -35,7 +35,7 @@ class BasketViewController: UIViewController {
     let imageView = UIImageView()
     let tableView = UITableView()
     let payButton = UIButton()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -50,17 +50,6 @@ class BasketViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: photoView)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: locationView)
-        
-//        payButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//                payButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//                payButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-//                payButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-//                payButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-//                payButton.heightAnchor.constraint(equalToConstant: 48)
-//            ])
-        
         
         tableViewConfigure()
         payButtonConfigure()
@@ -79,7 +68,7 @@ class BasketViewController: UIViewController {
         numberFormatter.groupingSeparator = " "
         let formattedPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) ?? ""
         
-
+        
         payButton.frame = CGRect(x: 5, y: view.bounds.height - 140, width: view.bounds.width - 10, height: 48)
         let buttonText = "Оплатить \(formattedPrice) ₽"
         payButton.setTitle(buttonText, for: .normal)
@@ -117,7 +106,7 @@ class BasketViewController: UIViewController {
         tableView.delegate = self
         tableView.register(BasketViewCell.self, forCellReuseIdentifier: "BasketCell")
     }
-
+    
 }
 
 extension BasketViewController: UITableViewDelegate {
@@ -168,24 +157,6 @@ extension BasketViewController: UITableViewDataSource {
 }
 
 extension BasketViewController: BasketViewCellDelegate {
-//    func updatePayButtonPrice() {
-//           var totalPrice: Double = 0
-//
-//           for indexPath in tableView.indexPathsForVisibleRows ?? [] {
-//               let basketItem = basketItems[indexPath.row]
-//               if let cell = tableView.cellForRow(at: indexPath) as? BasketViewCell {
-//                   totalPrice += Double(basketItem.price * cell.currentQuantity)
-//               }
-//           }
-//
-//           let numberFormatter = NumberFormatter()
-//           numberFormatter.numberStyle = .decimal
-//           numberFormatter.groupingSeparator = " "
-//
-//           if let formattedPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) {
-//               payButton.setTitle(formattedPrice, for: .normal)
-//           }
-//       }
     
     func updatePayButtonPrice() {
         var totalPrice: Double = 0
@@ -206,5 +177,5 @@ extension BasketViewController: BasketViewCellDelegate {
             payButton.setTitle(buttonText, for: .normal)
         }
     }
-
+    
 }

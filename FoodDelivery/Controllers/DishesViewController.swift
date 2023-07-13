@@ -76,6 +76,17 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         
     }
     
+    //MARK: - Dimming
+    
+    func darkenPhotoView() {
+        photoView.alpha = 0.5
+    }
+
+    func restorePhotoView() {
+        photoView.alpha = 1.0
+    }
+   
+    
     func showDimmingView() {
         dimmingView = UIView(frame: view.bounds)
         dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
@@ -95,6 +106,8 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
             self.dimmingView = nil
         }
     }
+    
+    //MARK: - Methods
     
     func addDishToBasket(_ dish: Dish) {
         guard let tabBarController = tabBarController as? TabBarController else {
@@ -133,18 +146,14 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
                 DispatchQueue.main.async {
                     self.tagNames = Array(Set(dishes.flatMap { $0.tegs.map { $0.rawValue } }))
                     self.horizontalCollectionView?.reloadData()
-
                     self.dishesCollectionView?.reloadData()
                 }
 
             case .failure(let error):
-                // Обработайте ошибку, если возникла
                 print("Ошибка при получении данных: \(error)")
             }
         }
     }
-
-    
     
     func dishesLayoutConfigure() {
         dishesLayout.scrollDirection = .vertical
@@ -161,7 +170,6 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
     }
     
 }
-
 
 
 //MARK: - Extensions DishesViewController
@@ -199,9 +207,8 @@ extension DishesViewController: UICollectionViewDelegate {
                 view.addSubview(popUpView)
                 popUpView.tabBarController = self.tabBarController
                 popUpView.dimmingView = dimmingView
-                
                 popUpView.darkenTabBar()
-                
+            
                 popUpView.center = view.center
                 popUpView.selectedDish = selectedDish
                 popUpView.namePopUp.text = selectedDish.name
@@ -285,5 +292,4 @@ extension DishesViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
 }
-            
-            //MARK: - Extensions HorizontalViewController
+

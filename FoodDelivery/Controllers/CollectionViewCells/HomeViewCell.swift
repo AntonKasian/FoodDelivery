@@ -22,12 +22,9 @@ class HomeViewCell: UICollectionViewCell {
     
     func dishesLabelConfigure(with category: MainCollectionContent) {
         nameCategoryLabel.text = category.name
-       // let font = UIFont(name: "SFProDisplay-Bold", size: 5)
         nameCategoryLabel.numberOfLines = 0
-        //nameCategoryLabel.font = UIFont.systemFont(ofSize: 20)
         nameCategoryLabel.font = UIFont(name: "SFProDisplay-Regular", size: 20)
-        nameCategoryLabel.textColor = .black // для темной темы
-        
+        nameCategoryLabel.textColor = .black
     }
     
     func dishesImageConfigure(with category: MainCollectionContent) {
@@ -53,7 +50,6 @@ class HomeViewCell: UICollectionViewCell {
         task.resume()
     }
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.cornerRadius = 10
@@ -64,8 +60,6 @@ class HomeViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()

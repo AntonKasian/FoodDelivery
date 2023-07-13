@@ -13,7 +13,6 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         generateTabBar()
         configureTabBar()
-        
     }
 
     func generateTabBar() {
@@ -58,7 +57,6 @@ class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = unselectedColor
         tabBar.tintColor = selectedColor
     }
-
 }
 
 

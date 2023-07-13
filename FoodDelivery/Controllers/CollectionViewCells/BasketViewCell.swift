@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BasketViewCellDelegate: AnyObject {
-    func updatePayButtonPrice() 
+    func updatePayButtonPrice()
 }
 
 class BasketViewCell: UITableViewCell {
@@ -25,12 +25,12 @@ class BasketViewCell: UITableViewCell {
     let quantityPlusButton = UIButton()
     
     weak var basketViewController: BasketViewController?
-
+    
     var currentQuantity: Int = 1 {
-            didSet {
-                updatePriceLabel()
-            }
+        didSet {
+            updatePriceLabel()
         }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "BasketCell")
@@ -63,7 +63,7 @@ class BasketViewCell: UITableViewCell {
     func customViewConfigure() {
         customView.backgroundColor = .systemBackground
         customView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         customView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -155,7 +155,7 @@ class BasketViewCell: UITableViewCell {
             }
         }
     }
-
+    
     @objc func increaseQuantity() {
         currentQuantity += 1
         quantityCount.text = "\(currentQuantity)"

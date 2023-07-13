@@ -48,7 +48,6 @@ class DishesViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.cornerRadius = 10
-//        contentView.backgroundColor = .red
         contentView.addSubview(dishesNameLabel)
         contentView.addSubview(dishesImageView)
     }

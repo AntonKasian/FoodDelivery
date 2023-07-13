@@ -82,7 +82,6 @@ class HomeViewController: UIViewController {
                     self.collectionView?.reloadData()
                 }
             case .failure(let error):
-                // Обработка ошибки
                 print("Ошибка при выполнении API запроса: \(error)")
             }
         }
@@ -125,7 +124,6 @@ class HomeViewController: UIViewController {
 
 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
-    
     print("You tapped me")
 }
 
