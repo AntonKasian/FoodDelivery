@@ -13,7 +13,7 @@ protocol PopUpViewDelegate: AnyObject {
 
 class PopUpView: UIView {
     
-    weak var delegate: PopUpViewDelegate?
+    weak var delegate: DishesViewController?
     
     var selectedDish: Dish? {
         didSet {
@@ -28,9 +28,11 @@ class PopUpView: UIView {
         }
     }
     
-    var dimmingView: UIView?
-    weak var tabBarController: UITabBarController?
     
+    var dimmingView: UIView?
+    
+    weak var tabBarController: UITabBarController?
+
     let closeButton = UIButton()
     let favouriteButton = UIButton()
     let imageView = UIImageView()
@@ -69,26 +71,12 @@ class PopUpView: UIView {
         addBusketConfigure()
     }
     
-    //MARK: - TAB BAR
-    
-    func darkenTabBar() {
-        tabBarController?.tabBar.isTranslucent = true
-        let color = dimmingView?.backgroundColor 
-        tabBarController?.tabBar.barTintColor = color
-    }
-    
-    func restoreTabBar() {
-        tabBarController?.tabBar.isTranslucent = false
-        tabBarController?.tabBar.barTintColor = nil
-    }
-    
     override func removeFromSuperview() {
         super.removeFromSuperview()
-        restoreTabBar()
-        
+        delegate?.isPopUpVisible = false
+       // removeFromSuperview()  // Удалите popUpView из его родительского представления
     }
-    
-    //MARK: - Configure
+
     
     func closeButtonConfigure() {
         closeButton.setImage(UIImage(named: "ClosePopUp"), for: .normal)
@@ -147,6 +135,10 @@ class PopUpView: UIView {
         addBusketButton.addTarget(self, action: #selector(addBusketButtonTapped), for: .touchUpInside)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func showDimmingView() {
         dimmingView = UIView(frame: superview?.bounds ?? .zero)
         dimmingView?.backgroundColor = UIColor(white: 0, alpha: 0.2)
@@ -185,8 +177,5 @@ class PopUpView: UIView {
         removeFromSuperview()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
 }

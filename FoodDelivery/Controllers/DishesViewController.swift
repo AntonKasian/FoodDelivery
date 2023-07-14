@@ -33,7 +33,7 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
     var selectedHorizontalIndex: Int?
 
     var dimmingView: UIView?
-    
+    var isPopUpVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,30 +73,32 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         
         horizontalCollectionView.frame = CGRect(x: 0, y: 100, width: view.bounds.width, height: 50)
         getDishes()
-        
     }
     
-    //MARK: - Dimming
-    
-    func darkenPhotoView() {
-        photoView.alpha = 0.5
-    }
-
-    func restorePhotoView() {
-        photoView.alpha = 1.0
-    }
-   
+    var popUpView: PopUpView?
     
     func showDimmingView() {
-        dimmingView = UIView(frame: view.bounds)
-        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        dimmingView?.alpha = 0.0
-        view.addSubview(dimmingView!)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+            dimmingView = UIView(frame: window.bounds)
+            dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            dimmingView?.alpha = 0.0
 
-        UIView.animate(withDuration: 0.3) {
-            self.dimmingView?.alpha = 1.0
+            if let dimmingView = dimmingView, let popUpView = self.popUpView {
+                window.addSubview(popUpView)
+                window.addSubview(dimmingView)
+                window.bringSubviewToFront(popUpView)
+            } else {
+                print("Somethig wrong with dimmingView")
+            }
+
+            UIView.animate(withDuration: 0.3) {
+                self.dimmingView?.alpha = 1.0
+            }
         }
     }
+
+
     
     func hideDimmingView() {
         UIView.animate(withDuration: 0.3, animations: {
@@ -104,10 +106,10 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         }) { _ in
             self.dimmingView?.removeFromSuperview()
             self.dimmingView = nil
+            self.popUpView?.removeFromSuperview()  // Удалите popUpView из его родительского представления
+            self.popUpView = nil
         }
     }
-    
-    //MARK: - Methods
     
     func addDishToBasket(_ dish: Dish) {
         guard let tabBarController = tabBarController as? TabBarController else {
@@ -154,7 +156,7 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
             }
         }
     }
-    
+
     func dishesLayoutConfigure() {
         dishesLayout.scrollDirection = .vertical
         dishesLayout.itemSize = CGSize(width: 115, height: 160)
@@ -169,18 +171,25 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         horizontalLayout.minimumInteritemSpacing = 1
     }
     
+    
 }
-
 
 //MARK: - Extensions DishesViewController
 
-extension DishesViewController: UICollectionViewDelegate {    
+extension DishesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
+        let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
+        
         if collectionView == dishesCollectionView {
-            
-            showDimmingView()
+            if !isPopUpVisible {
+                self.popUpView = popUpView
+                //self.isPopUpVisible = true
+                view.addSubview(popUpView)
+                showDimmingView()
+                
+            }
             
             var filteredDishes = dishesCollectionContent
             if let selectedTag = selectedTag {
@@ -200,16 +209,15 @@ extension DishesViewController: UICollectionViewDelegate {
                     imageURL: selectedDishesCollectionContent.imageURL,
                     tegs: selectedDishesCollectionContent.tegs
                 )
-
-                let popUpView = PopUpView(frame: CGRect(x: 0, y: 0, width: 340, height: 470))
+                
                 
                 popUpView.delegate = self
-                view.addSubview(popUpView)
+//                view.addSubview(popUpView)
                 popUpView.tabBarController = self.tabBarController
                 popUpView.dimmingView = dimmingView
-                popUpView.darkenTabBar()
-            
                 popUpView.center = view.center
+                
+                
                 popUpView.selectedDish = selectedDish
                 popUpView.namePopUp.text = selectedDish.name
                 popUpView.pricePopUp.text = "\(selectedDish.price) ₽"
@@ -234,7 +242,6 @@ extension DishesViewController: UICollectionViewDelegate {
             selectedTag = Teg(rawValue: tagNames[indexPath.item])
 
             if let selectedHorizontalIndex = selectedHorizontalIndex {
-
                 let previousIndexPath = IndexPath(item: selectedHorizontalIndex, section: 0)
                 if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? HorizontalViewCell {
                     previousCell.isSelected = false
@@ -245,7 +252,6 @@ extension DishesViewController: UICollectionViewDelegate {
             cell?.isSelected = true
 
             selectedHorizontalIndex = indexPath.item
-
             dishesCollectionView?.reloadData()
         }
     }
@@ -253,7 +259,6 @@ extension DishesViewController: UICollectionViewDelegate {
 
 extension DishesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         if collectionView == dishesCollectionView {
               var filteredCount = dishesCollectionContent.count
               if let selectedTag = selectedTag {
@@ -269,7 +274,6 @@ extension DishesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == dishesCollectionView {
-
             var filteredDishes = dishesCollectionContent
                 if let selectedTag = selectedTag {
                     filteredDishes = filteredDishes.filter { $0.tegs.contains(selectedTag) }
@@ -286,10 +290,12 @@ extension DishesViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalCell", for: indexPath) as! HorizontalViewCell
             let tagName = tagNames[indexPath.item]
             cell.labelConfigure(with: [tagName])
-            return cell
             
+            return cell
         }
+        
         return UICollectionViewCell()
     }
 }
+
 
