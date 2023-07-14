@@ -70,6 +70,7 @@ class DishesViewCell: UICollectionViewCell {
                                y: 0,
                                width: 109,
                                height: 109)
+        dishesImageView.contentMode = .scaleAspectFit
         dishesImageView.backgroundColor = #colorLiteral(red: 0.9733045697, green: 0.9686054587, blue: 0.9599207044, alpha: 1)
         dishesImageView.layer.cornerRadius = 15
         

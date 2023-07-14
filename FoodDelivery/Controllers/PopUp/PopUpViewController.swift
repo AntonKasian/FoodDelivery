@@ -74,7 +74,6 @@ class PopUpView: UIView {
     override func removeFromSuperview() {
         super.removeFromSuperview()
         delegate?.isPopUpVisible = false
-       // removeFromSuperview()  // Удалите popUpView из его родительского представления
     }
 
     
@@ -98,6 +97,7 @@ class PopUpView: UIView {
         imageView.backgroundColor = #colorLiteral(red: 0.9733045697, green: 0.9686054587, blue: 0.9599207044, alpha: 1)
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 15
+        imageView.contentMode = .scaleAspectFit
         imageView.addSubview(closeButton)
         imageView.addSubview(favouriteButton)
     }

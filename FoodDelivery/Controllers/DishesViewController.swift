@@ -98,8 +98,6 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         }
     }
 
-
-    
     func hideDimmingView() {
         UIView.animate(withDuration: 0.3, animations: {
             self.dimmingView?.alpha = 0.0
