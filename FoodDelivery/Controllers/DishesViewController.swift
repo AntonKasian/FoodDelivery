@@ -55,7 +55,9 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         
         view.addSubview(dishesCollectionView)
         
-        dishesCollectionView.frame = CGRect(x: 0, y: 100, width: view.bounds.width, height: view.bounds.height-100)
+        let horizontalCollectionViewMaxY = horizontalCollectionView?.frame.maxY ?? 0
+        dishesCollectionView.frame = CGRect(x: 0, y: horizontalCollectionViewMaxY + 5, width: view.bounds.width, height: view.bounds.height - horizontalCollectionViewMaxY - 5)
+
         
         //MARK: - HorizontalCollectionView
         
@@ -68,10 +70,12 @@ class DishesViewController: UIViewController, PopUpViewDelegate {
         horizontalCollectionView.dataSource = self
         horizontalCollectionView.delegate = self
         horizontalCollectionView.showsHorizontalScrollIndicator = false
+        horizontalCollectionView.backgroundColor = .clear
         
         view.addSubview(horizontalCollectionView)
         
-        horizontalCollectionView.frame = CGRect(x: 0, y: 100, width: view.bounds.width, height: 50)
+        let navigationBarHeight = navigationController?.navigationBar.frame.maxY ?? 0
+        horizontalCollectionView.frame = CGRect(x: 0, y: navigationBarHeight + 5, width: view.bounds.width, height: 50)
         getDishes()
     }
     
@@ -210,7 +214,6 @@ extension DishesViewController: UICollectionViewDelegate {
                 
                 
                 popUpView.delegate = self
-//                view.addSubview(popUpView)
                 popUpView.tabBarController = self.tabBarController
                 popUpView.dimmingView = dimmingView
                 popUpView.center = view.center
