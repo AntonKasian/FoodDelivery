@@ -68,10 +68,15 @@ class BasketViewController: UIViewController {
         numberFormatter.groupingSeparator = " "
         let formattedPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) ?? ""
         
-        
-        payButton.frame = CGRect(x: 5, y: view.bounds.height - 140, width: view.bounds.width - 10, height: 48)
         let buttonText = "Оплатить \(formattedPrice) ₽"
         payButton.setTitle(buttonText, for: .normal)
+        
+        let buttonWidth: CGFloat = view.bounds.width - 10
+        let buttonHeight: CGFloat = 48
+        let buttonX = (view.bounds.width - buttonWidth) / 2
+        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
+        let buttonY = view.bounds.height - tabBarHeight - buttonHeight - 20
+        payButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
     }
     
     func locationViewConfigure() {
@@ -179,3 +184,4 @@ extension BasketViewController: BasketViewCellDelegate {
     }
     
 }
+
